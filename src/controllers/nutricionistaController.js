@@ -9,7 +9,25 @@ class nutricionistaController{
             res.status(500).json({message: `${error.message} - falha na requisição`});
         }
     };
-    
+
+    static async loginNutricionista(req, res){ 
+        try {             // check if the user exists 
+            const user = await nutricionista.findOne({ email: req.body.email }); 
+            if (user) { 
+              //check if password matches 
+              const result = req.body.senha === user.senha; 
+              if (result) { 
+                res.status(201).json({message:`autenticação correta`}) 
+              } else { 
+                res.status(400).json({ error: "senha incorreta" }); 
+              } 
+            } else { 
+              res.status(400).json({ error: "usuário não existe" }); 
+            } 
+          } catch (error) { 
+            res.status(400).json({ error });
+    }};
+
     static async listarNutricionistasPorId(req, res){
         try {
             const id = req.params.id;
