@@ -1,5 +1,5 @@
-import express  from "express";
-import nutricionista from "./NutricionistasRoutes.js";
+import express from "express";
+import nutricionista from "./nutricionistasRoutes.js";
 import paciente from "./pacientesRoutes.js";
 
 const routes = (app) => {

@@ -1,18 +1,21 @@
-import  express from "express";
+import express from "express";
+import cors from "cors";
 import conectaNaDataBase from "./config/dbConnect.js";
 import routes from "./Routes/index.js";
 
 const conexao = await conectaNaDataBase();
 
-conexao.on("error", (erro)=> {
+conexao.on("error", (erro) => {
     console.error("erro de conexão", erro);
 });
 
-conexao.once("open", ()=> {
+conexao.once("open", () => {
     console.log("Conexao com o banco feita com sucesso");
 })
 
 const app = express();
+
+app.use(cors());
 
 routes(app);
 
@@ -22,10 +25,10 @@ routes(app);
 // });
 
 
- app.delete("/livros/:id", (req, res) => {
+app.delete("/livros/:id", (req, res) => {
     const index = buscaLivro(req.params.id);
-    livros.splice(index, 1);   
+    livros.splice(index, 1);
     res.status(200).send("livro removido com sucesso");
- });
+});
 
 export default app;
