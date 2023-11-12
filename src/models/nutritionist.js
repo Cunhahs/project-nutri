@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const nutricionistaSchema = new mongoose.Schema({
+const nutritionistSchema = new mongoose.Schema({
     id: { type: mongoose.Schema.Types.ObjectId },
     name: { type: String, required: true },
     crn: { type: String },
@@ -12,6 +12,6 @@ const nutricionistaSchema = new mongoose.Schema({
     password: { type: String }
 }, { versionKey: false });
 
-const nutricionista = mongoose.model("nutricionista", nutricionistaSchema);
+const nutritionist = mongoose.model("nutritionist", nutritionistSchema);
 
-export default nutricionista;
+export default nutritionist;
