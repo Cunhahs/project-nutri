@@ -2,8 +2,10 @@ import food from "../models/food.js"
 
 class foodController {
     static async listFoods(req, res) {
+        const nutritionistID = req.body.nutritionist_id;
+        const nutritionistFilter = { nutritionist_id: nutritionistID }
         try {
-            const foodsList = await food.find({});
+            const foodsList = await food.find({ nutritionistFilter });
             res.status(200).json(foodsList);
         } catch (error) {
             res.status(500).json({ message: `${error.message} - request failed` });

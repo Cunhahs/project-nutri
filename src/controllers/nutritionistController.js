@@ -1,4 +1,5 @@
 import nutritionist from "../models/nutritionist.js"
+import { crypto } from "../util/crypto.js";
 
 class NutritionistController {
     static async listNutritionists(req, res) {
@@ -11,23 +12,19 @@ class NutritionistController {
     };
 
     static async loginNutritionist(req, res) {
-        try {             // check if the user exists 
+        try {
             const user = await nutritionist.findOne({ email: req.body.email });
-            if (user) {
-                // check if password matches 
-                const result = req.body.password === user.password;
-                if (result) {
-                    res.status(201).json({ message: `Authentication successful` })
-                } else {
-                    res.status(400).json({ error: "Incorrect password" });
-                }
-            } else {
-                res.status(400).json({ error: "User does not exist" });
+
+            if (!user || !(await crypto.match(req.body.password, user.password))) {
+                return res.status(401).json({ error: "Email or password is incorrect" });
             }
+
+            res.status(200).json({ message: `Authentication successful` });
         } catch (error) {
-            res.status(400).json({ error });
+            console.error(error);
+            res.status(500).json({ error: 'Internal server error' });
         }
-    };
+    }
 
     static async listNutritionistsById(req, res) {
         try {
@@ -63,7 +60,8 @@ class NutritionistController {
 
     static async registerNutritionist(req, res) {
         try {
-            const newNutritionist = await nutritionist.create(req.body);
+            const encryptedPassword = crypto.encode(req.body.password);
+            const newNutritionist = await nutritionist.create({ ...req.body, password: encryptedPassword, });
             res.status(201).json({ message: "Successfully created.", nutritionist: newNutritionist });
         } catch (error) {
             res.status(500).json({ message: `${error.message} - failure to register nutritionist` });
