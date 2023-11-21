@@ -3,10 +3,10 @@ import patientController from "../controllers/patientController.js";
 
 const routes = express.Router();
 
-routes.get("/patient", patientController.listPatients);
+routes.post("/patient", patientController.registerPatient);
+routes.get("/patients/:nutritionist_id", patientController.listPatients);
 routes.get("/patient/:id", patientController.listPatientsById);
-routes.post("/patient/", patientController.registerPatient);
-routes.put("/patients/:id", patientController.updatePatient);
-routes.delete("/patients/:id", patientController.deletePatient);
+routes.put("/patient/:id", patientController.updatePatient);
+routes.delete("/patient/:id", patientController.deletePatient);
 
 export default routes;

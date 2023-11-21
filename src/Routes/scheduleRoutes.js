@@ -3,10 +3,10 @@ import scheduleController from "../controllers/scheduleController.js";
 
 const routes = express.Router();
 
-routes.get("/schedule", scheduleController.listSchedules);
-routes.get("/schedule/:id", scheduleController.listSchedulesById);
 routes.post("/schedule", scheduleController.registerSchedule);
-routes.put("/schedules/:id", scheduleController.updateSchedule);
-routes.delete("/schedules/:id", scheduleController.deleteSchedule);
+routes.get("/schedules/:nutritionist_id", scheduleController.listSchedules);
+routes.get("/schedule/:id", scheduleController.listSchedulesById);
+routes.put("/schedule/:id", scheduleController.updateSchedule);
+routes.delete("/schedule/:id", scheduleController.deleteSchedule);
 
 export default routes;

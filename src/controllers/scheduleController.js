@@ -2,8 +2,9 @@ import schedule from "../models/schedule.js"
 
 class scheduleController {
     static async listSchedules(req, res) {
+        const nutritionistID = req.params.nutritionist_id;
         try {
-            const schedulesList = await schedule.find({});
+            const schedulesList = await schedule.find({ nutritionist_id: nutritionistID });
             res.status(200).json(schedulesList);
         } catch (error) {
             res.status(500).json({ message: `${error.message} - request failed` });

@@ -2,8 +2,9 @@ import patient from "../models/patient.js"
 
 class PatientController {
     static async listPatients(req, res) {
+        const nutritionistID = req.params.nutritionist_id;
         try {
-            const patientsList = await patient.find({});
+            const patientsList = await patient.find({ nutritionist_id: nutritionistID });
             res.status(200).json(patientsList);
         } catch (error) {
             res.status(500).json({ message: `${error.message} - request failed` });
