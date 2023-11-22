@@ -14,11 +14,10 @@ class NutritionistController {
     static async loginNutritionist(req, res) {
         try {
             const user = await nutritionist.findOne({ email: req.body.email });
-
+            console.log("Encontrado")
             if (!user || !(await crypto.match(req.body.password, user.password))) {
                 return res.status(401).json({ error: "Email or password is incorrect" });
             }
-
             res.status(200).json({ message: `Authentication successful` });
         } catch (error) {
             console.error(error);

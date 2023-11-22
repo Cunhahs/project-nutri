@@ -6,8 +6,7 @@ function encode(data) {
 }
 
 async function match(data, hash) {
-    const match = await bcrypt.compare(data, hash);
-    if (!match) throw "Unauthorized";
+    return await bcrypt.compare(data, hash);
 }
 
 export const crypto = {
