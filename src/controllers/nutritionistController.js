@@ -20,10 +20,11 @@ class NutritionistController {
         try {
             const user = await nutritionist.findOne({ email: req.body.email });
             console.log("Encontrado")
+
             if (!user || !(await crypto.match(req.body.password, user.password))) {
                 return res.status(401).json({ error: "Email or password is incorrect" });
             }
-            const accessToken = sign({id: user.id, email: user.email}, jsonSecret, {expiresIn: 43200})
+            const accessToken = sign({id: user._id, email: user.email}, jsonSecret, {expiresIn: 43200})
 
             res.status(200).json({ message: `Authentication successful`, accessToken: accessToken });
         } catch (error) {
