@@ -17,8 +17,8 @@ export default async(request, response, next) => {const token = request.headers.
 
         const { id, email} = await decode(accessToken)
 
-        request.usuarioId = id
-        request.usuarioEmail = email
+        request.userId = id
+        request.userEmail = email
 
         return next()
 
