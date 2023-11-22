@@ -4,7 +4,7 @@ import autenticate from "../controllers/middleware/autenticate.js";
 
 const routes = express.Router();
 
-routes.use(autenticate)
+//routes.use(autenticate)
 
 routes.get("/nutritionists", NutritionistController.listNutritionists);
 routes.get("/nutritionist/:id", NutritionistController.listNutritionistsById);
