@@ -1,5 +1,10 @@
 import nutritionist from "../models/nutritionist.js"
 import { crypto } from "../util/crypto.js";
+import jsonSecret from "../config/jsonSecret.js"
+import pkg from 'jsonwebtoken';
+const { sign } = pkg;
+
+
 
 class NutritionistController {
     static async listNutritionists(req, res) {
@@ -18,7 +23,9 @@ class NutritionistController {
             if (!user || !(await crypto.match(req.body.password, user.password))) {
                 return res.status(401).json({ error: "Email or password is incorrect" });
             }
-            res.status(200).json({ message: `Authentication successful` });
+            const accessToken = sign({id: user.id, email: user.email}, jsonSecret, {expiresIn: 43200})
+
+            res.status(200).json({ message: `Authentication successful`, accessToken: accessToken });
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Internal server error' });
