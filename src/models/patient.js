@@ -4,6 +4,7 @@ const patientSchema = new mongoose.Schema({
     id: { type: mongoose.Schema.Types.ObjectId },
     nutritionist_id: { type: mongoose.Schema.Types.ObjectId, required: true },
     name: { type: String, required: true },
+    cpf: { type: String, required: true },
     phone: { type: String },
     mobile: { type: String },
     birth_date: { type: String },
