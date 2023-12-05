@@ -1,11 +1,14 @@
 import mongoose from "mongoose";
-const foodSchema = require('./food');
+import Food from './food.js';
 
 const dietSchema = new mongoose.Schema({
-    breakfast: { type: [foodSchema], required: true },
-    lunch: { type: [foodSchema], required: true },
-    dinner: { type: [foodSchema], required: true },
+    breakfast: [],
+    lunch: [],
+    afternoon_snack: [],
+    dinner: [],
+    supper: [],
 })
-const diet = mongoose.model("diet", dietSchema);
 
-export default diet;
+const Diet = mongoose.model("Diet", dietSchema);
+
+export default Diet;

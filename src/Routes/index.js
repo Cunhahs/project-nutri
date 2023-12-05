@@ -4,11 +4,12 @@ import login from "./loginRoutes.js"
 import patient from "./patientRoutes.js";
 import food from "./foodRoutes.js";
 import schedule from "./scheduleRoutes.js";
+import appoiment from "./appoimentRoutes.js";
 
 const routes = (app) => {
     app.route("/").get((req, res) => res.status(200).send("Node.js"));
 
-    app.use(express.json(),login, nutritionist, patient, food, schedule);
+    app.use(express.json(), login, nutritionist, patient, food, schedule, appoiment);
 }
 
 export default routes;

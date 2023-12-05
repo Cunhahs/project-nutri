@@ -4,11 +4,13 @@ import diet from "../models/diet.js"
 class appoimentController {
 
     static async registerAppoiment(req, res) {
+        console.log('Tentativa de cadastro de ', req.body.diet)
         try {
-            const newAppoiment = await appoiment.create(req.body);
-            const newDiet = await diet.create(req.body);
+            const newDiet = await diet.create(req.body.diet);
+            const newAppoiment = await appoiment.create({ ...req.body, appoiment_date: new Date, diet_id: newDiet._id });
             res.status(201).json({ message: "successfully created.", appoiment: newAppoiment, diet: newDiet });
         } catch (error) {
+            console.log(error)
             res.status(500).json({ message: `${error.message} - failure to register appoiment` });
         }
     };
